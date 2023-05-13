@@ -8,6 +8,7 @@ import '@unocss/reset/sanitize/assets.css'
 import '@unocss/reset/eric-meyer.css'
 import 'uno.css'
 import 'antd/dist/reset.css'
+import './global.css'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 

@@ -2,8 +2,8 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 
 // 懒加载
-const Home = React.lazy(() => import('../pages/Home'))
-const About = React.lazy(() => import('../pages/About'))
+const Blog = React.lazy(() => import('../pages/Blog'))
+const Projects = React.lazy(() => import('../pages/Projects'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
 interface Route {
@@ -15,16 +15,16 @@ interface Route {
 
 const routes: Route[] = [
   {
-    path: '/home',
-    element: <Home />,
+    path: '/blog',
+    element: <Blog />,
   },
   {
-    path: '/about',
-    element: <About />
+    path: '/projects',
+    element: <Projects />
   },
   {
     path: '/',
-    element: <Navigate to='/home' />
+    element: <Navigate to='/blog' />
   },
   {
     path: '*',
