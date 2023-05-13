@@ -1,11 +1,9 @@
 import React from 'react'
-import { Button } from 'antd'
+import Layout from './components/Layout.tsx'
 
 
 const App: React.FC = () => {
-  return (<>
-    <Button>btn</Button>
-  </>)
+  return <Layout />
 }
 
 export default App
