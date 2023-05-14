@@ -27,6 +27,7 @@ export interface Action {
   getBlog: () => Promise<BlogResponse>
   getBlogDetails: (id: number) => Promise<BlogResponse>
   setBlogDetails: (details: State['details']) => void
+  delBlog: (id: number) => Promise<BlogResponse>
 }
 
 export const useBlogStore = create<State & Action>(set => ({
@@ -41,5 +42,12 @@ export const useBlogStore = create<State & Action>(set => ({
     const res = await axios.get<BlogResponse>(`/api/blog/details?id=${id}`)
     return res.data
   },
-  setBlogDetails: (details) => set({ details })
+  setBlogDetails: (details) => set({ details }),
+  delBlog: async (id: number) => {
+
+    const res = await axios.delete(`/api/blog?id=${id}`, {
+      headers: { "Content-Type": 'application/json' }
+    })
+    return res.data
+  }
 }))
