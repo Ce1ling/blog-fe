@@ -5,6 +5,7 @@ import App from './App.tsx'
 import '@unocss/reset/normalize.css'
 import 'uno.css'
 import 'antd/dist/reset.css'
+import './reset.css'
 import './global.css'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
