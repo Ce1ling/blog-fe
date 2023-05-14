@@ -38,6 +38,10 @@ const BlogDetails: React.FC = () => {
     if (!hasSearchParam(id)) { return }
 
     const res = await getBlogDetails(Number(id))
+    if (res.code !== 0) {
+      messageApi.error(res.msg)
+      return
+    }
     setBlogDetails(res.data[0])
   }
   const getDate = (timestamp?: number) => {
