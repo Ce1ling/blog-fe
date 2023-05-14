@@ -36,8 +36,8 @@ const Blog: React.FC = () => {
           <List.Item.Meta
             className="!items-center"
             avatar={<Avatar size="large" src={item.avatar} icon={<UserOutlined />} />}
-            title={<p className="m-0 text-lg font-bold">{item.title}</p>}
-            description={item.content}
+            title={<p className="m-0 text-lg font-bold ellipsis-uniline">{item.title}</p>}
+            description={<p className="ellipsis-2">{item.content}</p>}
           />
         </List.Item>
       )}
