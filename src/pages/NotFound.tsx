@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useHeaderStore } from '../stores'
 import { Button } from 'antd'
+import { HomeOutlined } from '@ant-design/icons'
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ const NotFound: React.FC = () => {
         <h1 text-6xl>404</h1>
         <h2 text-4xl>Not Found</h2>
         <p text-2xl>Please check you URL.</p>
-        <Button onClick={Back}>Back Home</Button>
+        <Button icon={<HomeOutlined />} onClick={Back}>Back Home</Button>
       </div>
     </div>
   )

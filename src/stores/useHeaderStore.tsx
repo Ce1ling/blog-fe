@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-
+import { BookOutlined, FundProjectionScreenOutlined, LoginOutlined } from '@ant-design/icons'
 
 import type { MenuProps } from 'antd'
 
@@ -14,19 +14,22 @@ interface Action {
   resetActive: () => void
 }
 
-export const useHeaderStore = create<State & Action>((set) => ({
+export const useHeaderStore = create<State & Action>(set => ({
   items: [
     {
       key: '1',
       label: 'Blog',
+      icon: <BookOutlined />
     },
     {
       key: '2',
       label: 'Projects',
+      icon: <FundProjectionScreenOutlined />
     },
     {
       key: '3',
-      label: 'SignIn'
+      label: 'SignIn',
+      icon: <LoginOutlined />
     }
   ],
   active: '1',

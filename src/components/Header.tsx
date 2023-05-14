@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Button } from 'antd'
 import { useHeaderStore } from '../stores'
 
 import type { MenuProps } from 'antd'
@@ -19,10 +19,14 @@ const Header: React.FC = () => {
   }
 
   return (
-    <AntHeader>
+    <AntHeader className='flex sticky' justify-between items-center gap-10 top-0 inset-x-0>
+      <Button type="link" href='/' block w-10 h-10 p-0>
+        <img className='block w-100% h-100%' src="../../public/L1en.png" alt="logo" />
+      </Button>
       <Menu 
         select-none
         justify-end
+        flex-1
         mode="horizontal" 
         theme="dark"
         selectedKeys={[active]} 
