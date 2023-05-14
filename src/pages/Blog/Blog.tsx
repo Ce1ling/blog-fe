@@ -4,7 +4,7 @@ import { List, Avatar, Empty } from 'antd'
 import { UserOutlined  } from '@ant-design/icons'
 import { useBlogStore } from "../../stores"
 
-import type { AxiosItem } from '../../stores/useBlogStore'
+import type { BlogItem } from '../../stores/useBlogStore'
 
 
 const Blog: React.FC = () => {
@@ -15,7 +15,7 @@ const Blog: React.FC = () => {
     getBlog()
   }, [])
 
-  const click = (item: AxiosItem) => {
+  const click = (item: BlogItem) => {
     return () => {
       nav(`/blog/details?id=${item.id}`)
     }

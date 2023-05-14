@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { Button, message, Card } from 'antd'
 import { useBlogStore } from '../../stores'
-
-import type { AxiosItem } from '../../stores/useBlogStore'
 
 
 const BlogDetails: React.FC = () => {
   const nav = useNavigate()
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const { getBlogDetails } = useBlogStore()
+  const { details, getBlogDetails, setBlogDetails } = useBlogStore()
   const [messageApi, messageHolder] = message.useMessage()
-
-  const [details, setDetails] = useState<AxiosItem | null>(null)
 
   const getBlogDetailsById = async (id: string | number | null) => {
     if (id === null) { 
@@ -25,7 +21,7 @@ const BlogDetails: React.FC = () => {
       return
     }
     const res = await getBlogDetails(Number(id))
-    setDetails(res[0])
+    setBlogDetails(res.data[0])
   }
   const getDate = (timestamp?: number) => {
     const date = timestamp ? new Date(timestamp) : new Date()

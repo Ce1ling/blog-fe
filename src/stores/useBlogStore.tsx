@@ -1,10 +1,8 @@
 import { create } from 'zustand'
 import axios from '../axios'
 
-import type { AxiosResponse } from 'axios'
 
-
-export type AxiosItem = {
+export interface BlogItem {
   id: number
   title: string
   content: string
@@ -14,23 +12,34 @@ export type AxiosItem = {
   avatar?: string
 }
 
+export interface BlogResponse {
+  code: number
+  msg: string
+  data: BlogItem[]
+}
+
 export interface State {
-  list: AxiosItem[]
+  list: BlogItem[]
+  details: BlogItem | null
 }
 
 export interface Action {
-  getBlog: () => void
-  getBlogDetails: (id: number) => Promise<AxiosItem[]>
+  getBlog: () => Promise<BlogResponse>
+  getBlogDetails: (id: number) => Promise<BlogResponse>
+  setBlogDetails: (details: State['details']) => void
 }
 
 export const useBlogStore = create<State & Action>(set => ({
   list: [],
+  details: null,
   getBlog: async () => {
-    const res = await axios.get<AxiosResponse>('/api/blog')
+    const res = await axios.get<BlogResponse>('/api/blog')
     set({ list: res.data.data })
+    return res.data
   },
   getBlogDetails: async (id) => {
-    const res = await axios.get<AxiosResponse>(`/api/blog/details?id=${id}`)
-    return res.data.data
-  }
+    const res = await axios.get<BlogResponse>(`/api/blog/details?id=${id}`)
+    return res.data
+  },
+  setBlogDetails: (details) => set({ details })
 }))
