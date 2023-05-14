@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   return (
     <AntHeader className='flex sticky' justify-between items-center gap-10 top-0 inset-x-0>
       <Button type="link" href='/' block w-10 h-10 p-0>
-        <img className='block w-100% h-100%' src="../../public/L1en.png" alt="logo" />
+        <img className='block w-100% h-100%' src="/L1en.png" alt="logo" />
       </Button>
       <Menu 
         select-none

@@ -10,7 +10,7 @@ const Content: React.FC = () => {
   const elements = useRoutes(routes)
 
   return (
-    <AntContent className='flex' p-10 flex-1>
+    <AntContent p-10 flex-1>
       <React.Suspense fallback={<Loading />}>
         {elements}
       </React.Suspense>
