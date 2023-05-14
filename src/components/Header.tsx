@@ -1,33 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
+import { useHeaderStore } from '../stores'
 
 import type { MenuProps } from 'antd'
+import type { MenuItemType } from 'antd/es/menu/hooks/useItems'
 
 const { Header: AntHeader } = Layout
 
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: 'Blog',
-  },
-  {
-    key: '2',
-    label: 'Projects',
-  },
-  {
-    key: '3',
-    label: 'SignIn'
-  }
-]
-
 const Header: React.FC = () => {
-  const [active, setActive] = useState('1')
   const navigate = useNavigate()
-  
-  const selecte: MenuProps['onSelect'] = ({ key, domEvent }) => {
+  const { items, active, setActive } = useHeaderStore()
+
+  const selecte: MenuProps['onSelect'] = ({ key }) => {
     setActive(key)
-    navigate(`/${(domEvent.target as HTMLElement).innerText}`)
+    const item = items.find(item => item?.key === key) as MenuItemType
+    navigate(`/${item.label}`)
   }
 
   return (
