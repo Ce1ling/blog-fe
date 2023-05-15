@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, message, Card, Popconfirm } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useBlogStore } from '../../../stores'
 import { api } from './api'
+import { AppContext } from '../../../App'
 
 
 type SearchParams = string | null
@@ -14,10 +15,10 @@ interface HasSearchParam {
 
 const BlogDetails: React.FC = () => {
   const nav = useNavigate()
-  const location = useLocation()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const [messageApi, messageHolder] = message.useMessage()
   const { details, setBlogDetails } = useBlogStore()
+  const appMsg = useContext(AppContext)
 
   const hasSearchParam: HasSearchParam = (param) => {
     if (param === null) { 
@@ -60,8 +61,8 @@ const BlogDetails: React.FC = () => {
         messageApi.error(res.msg)
         throw new Error(res.msg)
       }
-      messageApi.success(`${res.msg}, 准备跳转中...`)
-      setTimeout(() => nav('/'), 1500)
+      appMsg?.success(res.msg)
+      nav(-1)
     }
   }
   const editBlog = (id: SearchParams) => {
@@ -71,7 +72,6 @@ const BlogDetails: React.FC = () => {
   }
 
   useEffect(() => {
-    setSearchParams(location.search)
     getBlogDetails(searchParams.get('id'))
   }, [])
 
@@ -81,7 +81,7 @@ const BlogDetails: React.FC = () => {
       <Card className='relative min-h-100%' title={
         <>
           <div className='absolute inset-t-6 inset-l-6 flex gap-4'>
-            <Button onClick={() => nav('/blog')}>返回</Button>
+            <Button onClick={() => nav(-1)}>返回</Button>
             <Button type='primary' onClick={editBlog(searchParams.get('id'))}>编辑</Button>
             <Popconfirm
               title="删除文章"

@@ -5,12 +5,12 @@ import { Button } from 'antd'
 import { HomeOutlined } from '@ant-design/icons'
 
 const NotFound: React.FC = () => {
-  const navigate = useNavigate()
+  const nav = useNavigate()
   const { resetActive } = useHeaderStore()
 
   const Back = () => {
     resetActive()
-    navigate('/')
+    nav('/')
   }
 
   return (

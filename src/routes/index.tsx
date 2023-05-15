@@ -1,6 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
+import type { RouteProps } from 'react-router-dom'
+
 // 懒加载
 const Blog = React.lazy(() => import('../pages/Blog'))
 const BlogDetails = React.lazy(() => import('../pages/Blog/BlogDetails'))
@@ -8,14 +10,7 @@ const BlogCreate = React.lazy(() => import('../pages/Blog/BlogCreate'))
 const Projects = React.lazy(() => import('../pages/Projects'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
-interface Route {
-  path: string
-  name?: string
-  element: React.ReactNode
-  children?: Route[]
-}
-
-const routes: Route[] = [
+const routes: RouteProps[] = [
   {
     path: '/blog',
     element: <Blog />,

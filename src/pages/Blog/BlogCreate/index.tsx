@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { Button, Input, Card, message } from 'antd'
+import { AppContext } from '../../../App'
 
 import type { InputProps } from 'antd'
 import { api } from './api'
@@ -19,6 +20,7 @@ const BlogCreate: React.FC = () => {
   const nav = useNavigate()
   const [searchParams] = useSearchParams()
   const [messageApi, messageHolder] = message.useMessage()
+  const appMsg = useContext(AppContext)
 
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -57,7 +59,8 @@ const BlogCreate: React.FC = () => {
       messageApi.error(res.msg)
       return
     }
-    messageApi.success(res.msg)
+    appMsg?.success(res.msg)
+    nav(-1)
   }
   const editMode = async (id: string) => {
     const res = await detailApi.getBlogDetails(id)
