@@ -66,7 +66,7 @@ const BlogDetails: React.FC = () => {
   }
   const editBlog = (id: SearchParams) => {
     return () => {
-      console.log('edit', id)
+      nav(`/blog/create?id=${id}`)
     }
   }
 

@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { Button, Input, Card, message } from 'antd'
 
 import type { InputProps } from 'antd'
 import { api } from './api'
+import { api as detailApi } from '../BlogDetails/api'
 
 
 interface Stauts {
@@ -15,6 +17,7 @@ const { TextArea } = Input
 
 const BlogCreate: React.FC = () => {
   const nav = useNavigate()
+  const [searchParams] = useSearchParams()
   const [messageApi, messageHolder] = message.useMessage()
 
   const [title, setTitle] = useState('')
@@ -43,23 +46,41 @@ const BlogCreate: React.FC = () => {
     }
     return true
   }
-  const create = async () => {
+  const save = async () => {
     if (!hasValue()) { return }
 
-    const res = await api.createBlog({ title, content })
+    const id = searchParams.get('id')
+    const params = { title, content }
+    const { editBlog, createBlog } = api
+    const res = await (id?.trim() ? editBlog(id, params) : createBlog(params))
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
     }
     messageApi.success(res.msg)
   }
+  const editMode = async (id: string) => {
+    const res = await detailApi.getBlogDetails(id)
+    if (res.code !== 0) {
+      messageApi.error(res.msg)
+      return
+    }
+    const { title, content } = res.data[0]
+    setTitle(title)
+    setContent(content)
+  }
+
+  useEffect(() => {
+    const id = searchParams.get('id')
+    if (id?.trim()) { editMode(id) }
+  }, [])
 
   return (
     <>
       {messageHolder}
       <div className='flex' items-center gap-2 m-b-2>
-        <Button onClick={() => nav('/blog')}>返回</Button>
-        <Button type="primary" onClick={create}>保存</Button>
+        <Button onClick={() => nav(-1)}>返回</Button>
+        <Button type="primary" onClick={save}>保存</Button>
       </div>
       <Card>
         <Input 
