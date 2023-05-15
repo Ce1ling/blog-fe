@@ -64,6 +64,11 @@ const BlogDetails: React.FC = () => {
       setTimeout(() => nav('/'), 1500)
     }
   }
+  const editBlog = (id: SearchParams) => {
+    return () => {
+      console.log('edit', id)
+    }
+  }
 
   useEffect(() => {
     setSearchParams(location.search)
@@ -77,6 +82,7 @@ const BlogDetails: React.FC = () => {
         <>
           <div className='absolute inset-t-6 inset-l-6 flex gap-4'>
             <Button onClick={() => nav('/blog')}>返回</Button>
+            <Button type='primary' onClick={editBlog(searchParams.get('id'))}>编辑</Button>
             <Popconfirm
               title="删除文章"
               description="您确定删除此文章吗？"
