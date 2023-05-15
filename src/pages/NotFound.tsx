@@ -18,7 +18,7 @@ const NotFound: React.FC = () => {
       <div font-bold text-center>
         <h1 text-6xl>404</h1>
         <h2 text-4xl>Not Found</h2>
-        <p text-2xl>Please check you URL.</p>
+        <p text-2xl>请检查你的 URL 地址</p>
         <Button icon={<HomeOutlined />} onClick={Back}>Back Home</Button>
       </div>
     </div>
