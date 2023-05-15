@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { Button, message, Card, Popconfirm } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { useBlogStore } from '../../stores'
+import { useBlogStore } from '../../../stores'
+import { api } from './api'
 
 
 type SearchParams = string | null
@@ -16,12 +17,7 @@ const BlogDetails: React.FC = () => {
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   const [messageApi, messageHolder] = message.useMessage()
-  const { 
-    details, 
-    getBlogDetails, 
-    setBlogDetails,
-    delBlog
-  } = useBlogStore()
+  const { details, setBlogDetails } = useBlogStore()
 
   const hasSearchParam: HasSearchParam = (param) => {
     if (param === null) { 
@@ -34,10 +30,10 @@ const BlogDetails: React.FC = () => {
     }
     return true
   }
-  const getBlogDetailsById = async (id: SearchParams) => {
+  const getBlogDetails = async (id: SearchParams) => {
     if (!hasSearchParam(id)) { return }
 
-    const res = await getBlogDetails(Number(id))
+    const res = await api.getBlogDetails(Number(id))
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
@@ -59,7 +55,7 @@ const BlogDetails: React.FC = () => {
     return async () => {
       if (!hasSearchParam(id)) { return }
 
-      const res = await delBlog(Number(id))
+      const res = await api.deleteBlog(Number(id))
       if (res.code !== 0) {
         messageApi.error(res.msg)
         throw new Error(res.msg)
@@ -71,7 +67,7 @@ const BlogDetails: React.FC = () => {
 
   useEffect(() => {
     setSearchParams(location.search)
-    getBlogDetailsById(searchParams.get('id'))
+    getBlogDetails(searchParams.get('id'))
   }, [])
 
   return (

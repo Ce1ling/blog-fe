@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { List, Avatar, Empty, message } from 'antd'
 import { UserOutlined  } from '@ant-design/icons'
 import { useBlogStore } from "../../stores"
+import { api } from './api'
 
 import type { BlogItem } from '../../stores/useBlogStore'
 
@@ -10,19 +11,19 @@ import type { BlogItem } from '../../stores/useBlogStore'
 const Blog: React.FC = () => {
   const nav = useNavigate()
   const [messageApi, messageHolder] = message.useMessage()
-  const { list, getBlog, setBlog } = useBlogStore()
+  const { blogs, setBlogs } = useBlogStore()
   
-  const getBlogList = async () => {
-    const res = await getBlog()
+  const getBlogs = async () => {
+    const res = await api.getBlogs()
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
     }
-    setBlog(res.data)
+    setBlogs(res.data)
   }
 
   useEffect(() => {
-    getBlogList()
+    getBlogs()
   }, [])
 
   const click = (item: BlogItem) => {
@@ -38,7 +39,7 @@ const Blog: React.FC = () => {
         max-w-980px
         m-x-auto
         itemLayout="horizontal"
-        dataSource={list}
+        dataSource={blogs}
         locale={{ emptyText: <Empty className="m-y-20" description="no article" /> }}
         renderItem={item => (
           <List.Item 

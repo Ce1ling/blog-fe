@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import axios from '../axios'
 
 
 export interface BlogItem {
@@ -12,40 +11,19 @@ export interface BlogItem {
   avatar?: string
 }
 
-export interface BlogResponse {
-  code: number
-  msg: string
-  data: BlogItem[]
-}
-
 export interface State {
-  list: BlogItem[]
+  blogs: BlogItem[]
   details: BlogItem | null
 }
 
 export interface Action {
-  getBlog: () => Promise<BlogResponse>
-  setBlog: (list: BlogItem[]) => void
-  getBlogDetails: (id: number) => Promise<BlogResponse>
+  setBlogs: (list: BlogItem[]) => void
   setBlogDetails: (details: State['details']) => void
-  delBlog: (id: number) => Promise<BlogResponse>
 }
 
 export const useBlogStore = create<State & Action>(set => ({
-  list: [],
+  blogs: [],
   details: null,
-  getBlog: async () => {
-    const res = await axios.get<BlogResponse>('/api/blog')
-    return res.data
-  },
-  setBlog: (list) => set({ list }),
-  getBlogDetails: async (id) => {
-    const res = await axios.get<BlogResponse>(`/api/blog/details?id=${id}`)
-    return res.data
-  },
+  setBlogs: (blogs) => set({ blogs }),
   setBlogDetails: (details) => set({ details }),
-  delBlog: async (id: number) => {
-    const res = await axios.delete(`/api/blog?id=${id}`)
-    return res.data
-  }
 }))

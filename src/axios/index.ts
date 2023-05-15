@@ -5,11 +5,6 @@ const server = axios.create({
   timeout: 5000
 })
 
-
-server.defaults.headers.post['Content-Type'] = 'application/json'
-server.defaults.headers.put['Content-Type'] = 'application/json'
-server.defaults.headers.delete['Content-Type'] = 'application/json'
-
 server.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json;charset=utf-8'
   return config
