@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   const selecte: MenuProps['onSelect'] = ({ key }) => {
     setActive(key)
     const item = items.find(item => item?.key === key) as MenuItemType
-    nav(`/${item.label}`)
+    nav(`/${((item.label as string).toLowerCase())}`)
   }
   const createBlog = () => {
     nav('/blog/create')
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
       <Button type="link" href='/' block w-10 h-10 p-0>
         <img className='block w-100% h-100%' src="/L1en.svg" alt="logo" />
       </Button>
-      <div className='flex' items-center gap-6>
+      <div className='flex' items-center gap-6 flex-basis-25rem>
         <Button icon={<EditOutlined />} type='primary' size="large" onClick={createBlog}>
           写作
         </Button>
