@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useHeaderStore } from '../stores'
+import { useMenuStore } from '../stores'
 import { Layout, Menu, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 
@@ -10,7 +10,7 @@ const { Header: AntHeader } = Layout
 
 const Header: React.FC = () => {
   const nav = useNavigate()
-  const { items, active, setActive } = useHeaderStore()
+  const { items, active, setActive } = useMenuStore()
 
   const selecte: MenuProps['onSelect'] = ({ key }) => {
     setActive(key)

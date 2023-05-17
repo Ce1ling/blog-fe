@@ -21,7 +21,7 @@ interface Action {
 const ACTIVE_NAME = 'L1en_blog_menu_active'
 const ACTIVE_DEFAULT = '1'
 
-export const useHeaderStore = create<State & Action>(set => ({
+export const useMenuStore = create<State & Action>(set => ({
   items: [
     {
       key: '1',

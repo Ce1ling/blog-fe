@@ -1,12 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useHeaderStore } from '../stores'
+import { useMenuStore } from '../stores'
 import { Button } from 'antd'
 import { HomeOutlined } from '@ant-design/icons'
 
 const NotFound: React.FC = () => {
   const nav = useNavigate()
-  const { resetActive } = useHeaderStore()
+  const { resetActive } = useMenuStore()
 
   const Back = () => {
     resetActive()

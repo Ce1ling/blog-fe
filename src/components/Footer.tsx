@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
 
   return (
     <AntFooter className='bg-#dddddd' text-center>
-      Mini Blog ©{new Date().getFullYear()} 
+      L1en ©{new Date().getFullYear()} 
       <Button type="link" href='https://github.com/Ce1ling' target='_blank'>
         L1en
       </Button>
