@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-import type { RouteProps } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
 
 // 懒加载
 const Blog = React.lazy(() => import('../pages/Blog'))
@@ -10,7 +10,7 @@ const BlogCreate = React.lazy(() => import('../pages/Blog/BlogCreate'))
 const Projects = React.lazy(() => import('../pages/Projects'))
 const NotFound = React.lazy(() => import('../pages/NotFound'))
 
-const routes: RouteProps[] = [
+const routes: RouteObject[] = [
   {
     path: '/blog',
     element: <Blog />,

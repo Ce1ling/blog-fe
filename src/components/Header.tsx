@@ -5,7 +5,6 @@ import { Layout, Menu, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 
 import type { MenuProps } from 'antd'
-import type { MenuItemType } from 'antd/es/menu/hooks/useItems'
 
 const { Header: AntHeader } = Layout
 
@@ -15,8 +14,8 @@ const Header: React.FC = () => {
 
   const selecte: MenuProps['onSelect'] = ({ key }) => {
     setActive(key)
-    const item = items.find(item => item?.key === key) as MenuItemType
-    nav(`/${((item.label as string).toLowerCase())}`)
+    const item = items.find(item => item.key === key)
+    nav(item?.path || '/')
   }
   const createBlog = () => {
     nav('/blog/create')
