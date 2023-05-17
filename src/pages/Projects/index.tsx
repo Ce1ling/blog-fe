@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Row, Col,Card, Button, message, Popover, Empty, Skeleton } from 'antd'
 import { LinkOutlined, HomeOutlined, EllipsisOutlined } from '@ant-design/icons'
 import { api } from './api'
+import { handleError } from '../../axios/errors'
 
 import type { ReposResponse } from './api'
+import type { AxiosError } from 'axios'
 
 const Projects: React.FC = () => {
   const [repos, setRepos] = useState<ReposResponse[]>()
@@ -14,8 +16,10 @@ const Projects: React.FC = () => {
       const res = await api.getRepos({ type: 'all', sort: 'pushed' })
       setRepos(res)
       setLoading(false)
-    } catch (err) {
-      throw new Error(err as string)
+    } catch (error) {
+      const err = error as AxiosError
+      handleError(err.message)
+      throw new Error(err.message)
     }
   }
   const hoempage = (repo: ReposResponse) => {
