@@ -98,11 +98,12 @@ const BlogDetails: React.FC = () => {
           </div>
           <div className='m-y-10 text-center'>
             <h1 className='m-0'>{details?.title}</h1>
-            <span className='font-normal m-r-4'>
+            <span className='font-normal'>
               作者: 
               <span className='cursor-pointer hover:text-blue'> {details?.author} </span>
             </span>
-            <span className='font-normal'>日期: {getDate(details?.create_at)}</span>
+            <span className='font-normal' m-x-4>创作于: {getDate(details?.create_at)}</span>
+            <span className='font-normal'>最后更新于: {getDate(details?.update_at)}</span>
           </div>
         </>
       } actions={[<span>The end.</span>]}>
