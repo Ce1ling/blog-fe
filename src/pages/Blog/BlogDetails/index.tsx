@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, message, Card, Popconfirm } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useBlogStore } from '../../../stores'
 import { api } from './api'
-import { AppContext } from '../../../App'
 
 
 type SearchParams = string | null
@@ -18,7 +17,6 @@ const BlogDetails: React.FC = () => {
   const [searchParams] = useSearchParams()
   const [messageApi, messageHolder] = message.useMessage()
   const { details, setDetails } = useBlogStore()
-  const appMsg = useContext(AppContext)
 
   const hasSearchParam: HasSearchParam = (param) => {
     if (param === null) { 
@@ -61,7 +59,7 @@ const BlogDetails: React.FC = () => {
         messageApi.error(res.msg)
         throw new Error(res.msg)
       }
-      appMsg?.success(res.msg)
+      message.success(res.msg)
       nav(-1)
     }
   }
