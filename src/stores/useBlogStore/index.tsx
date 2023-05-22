@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 
-export interface BlogItem {
+export interface Post {
   id: number
   title: string
   content: string
@@ -18,26 +18,26 @@ export interface PostPaging {
 }
 
 export interface State {
-  blogs: BlogItem[]
-  details: BlogItem | null
+  posts: Post[]
+  details: Post | null
   paging: PostPaging
 }
 
 export interface Action {
-  setBlogs: (psots: BlogItem[]) => void
-  setBlogDetails: (details: State['details']) => void
+  setPosts: (psots: Post[]) => void
+  setDetails: (details: State['details']) => void
   setPaging: (paging: PostPaging) => void
 }
 
 export const useBlogStore = create<State & Action>(set => ({
-  blogs: [],
+  posts: [],
   details: null,
   paging: {
     page: 1,
     per_page: 10,
     total: 10,
   },
-  setBlogs: (blogs: BlogItem[]) => set({ blogs }),
-  setBlogDetails: (details) => set({ details }),
+  setPosts: (posts: Post[]) => set({ posts }),
+  setDetails: (details) => set({ details }),
   setPaging: (paging: PostPaging) => set({ paging })
 }))

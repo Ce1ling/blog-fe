@@ -1,12 +1,12 @@
 import axios from "../../axios"
 import qs from 'qs'
 
-import type { BlogItem, PostPaging } from '../../stores/useBlogStore'
+import type { Post, PostPaging } from '../../stores/useBlogStore'
 
 
 export interface PostData {
   paging: PostPaging
-  data: BlogItem[]
+  data: Post[]
 }
 
 export interface PostResponse {

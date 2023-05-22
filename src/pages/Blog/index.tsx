@@ -6,13 +6,13 @@ import { useBlogStore } from "../../stores"
 import { api } from './api'
 
 import type { PaginationProps } from 'antd'
-import type { BlogItem, PostPaging } from '../../stores/useBlogStore'
+import type { Post, PostPaging } from '../../stores/useBlogStore'
 
 
 const Blog: React.FC = () => {
   const nav = useNavigate()
   const [messageApi, messageHolder] = message.useMessage()
-  const { blogs, setBlogs, paging, setPaging } = useBlogStore()
+  const { posts, setPosts, paging, setPaging } = useBlogStore()
   
   const getBlogs = async (params?: Omit<PostPaging, 'total'>) => {
     const res = await api.getBlogs(params)
@@ -21,7 +21,7 @@ const Blog: React.FC = () => {
       return
     }
     const { data, paging } = res.data
-    setBlogs(data)
+    setPosts(data)
     setPaging(paging)
   }
 
@@ -29,7 +29,7 @@ const Blog: React.FC = () => {
     getBlogs()
   }, [])
 
-  const onItemClick = (item: BlogItem) => {
+  const onItemClick = (item: Post) => {
     return () => {
       nav(`/blog/details?id=${item.id}`)
     }
@@ -46,7 +46,7 @@ const Blog: React.FC = () => {
         max-w-980px
         m-x-auto
         itemLayout="horizontal"
-        dataSource={blogs}
+        dataSource={posts}
         locale={{ emptyText: <Empty className="m-y-20" description="no article" /> }}
         renderItem={item => (
           <List.Item 

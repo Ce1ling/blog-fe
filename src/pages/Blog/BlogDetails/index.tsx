@@ -17,7 +17,7 @@ const BlogDetails: React.FC = () => {
   const nav = useNavigate()
   const [searchParams] = useSearchParams()
   const [messageApi, messageHolder] = message.useMessage()
-  const { details, setBlogDetails } = useBlogStore()
+  const { details, setDetails } = useBlogStore()
   const appMsg = useContext(AppContext)
 
   const hasSearchParam: HasSearchParam = (param) => {
@@ -39,7 +39,7 @@ const BlogDetails: React.FC = () => {
       messageApi.error(res.msg)
       return
     }
-    setBlogDetails(res.data[0])
+    setDetails(res.data[0])
   }
   const getDate = (timestamp?: number) => {
     const date = timestamp ? new Date(timestamp * 1000) : new Date()
