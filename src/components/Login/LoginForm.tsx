@@ -1,17 +1,21 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
 import type { FormProps } from 'antd'
 
 
 const LoginForm: React.FC = () => {
-
+  const tip = () => {
+    message.info('暂未接入用户系统, 敬请期待.')
+  }
   const onLogin: FormProps['onFinish'] = (values) => {
     console.log('login submit', values)
+    tip()
   }
   const onLoginFail: FormProps['onFinishFailed'] = (error) => {
     console.log('login failed', error)
+    tip()
   }
 
   return (

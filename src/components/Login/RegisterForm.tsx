@@ -1,21 +1,34 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 
 import type { FormProps } from 'antd'
 
+interface RegisterFormData {
+  verify: string
+}
 
 const RegisterForm: React.FC = () => {
+  const [form] = Form.useForm<RegisterFormData>()
+  const verifyCode = Form.useWatch('verify', form)
 
+  const tip = () => {
+    message.info('暂未接入用户系统, 敬请期待.')
+  }
   const onRegister: FormProps['onFinish'] = (values) => {
     console.log('register submit', values)
+    tip()
   }
   const onRegisterFail: FormProps['onFinishFailed'] = (error) => {
     console.log('register failed', error)
+    tip()
+  }
+  const getVerifyCode = () => {
+    console.log('get verify code', verifyCode)
   }
 
   return (
-    <Form onFinish={onRegister} onFinishFailed={onRegisterFail} autoComplete="off">
+    <Form form={form} onFinish={onRegister} onFinishFailed={onRegisterFail} autoComplete="off">
       <Form.Item name="email" rules={[{ required: true, message: '请输入邮箱地址/手机号码！' }]}>
         <Input 
           size="large" 
@@ -51,11 +64,7 @@ const RegisterForm: React.FC = () => {
       <Form.Item name="verify" rules={[{ required: true, message: '请输入验证码！' }]}>
         <div className="flex" gap-4>
           <Input placeholder='验证码' allowClear />
-          <Button 
-            size="large"
-            htmlType="submit" 
-            type='primary'
-          >获取验证码</Button>
+          <Button size="large" type='primary' onClick={getVerifyCode}>获取验证码</Button>
         </div>
       </Form.Item>
       <Form.Item>
