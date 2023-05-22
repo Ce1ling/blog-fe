@@ -1,35 +1,42 @@
 import React, { useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
-import { List, Avatar, Empty, message } from 'antd'
+import { List, Avatar, Empty, message, Pagination } from 'antd'
 import { UserOutlined  } from '@ant-design/icons'
 import { useBlogStore } from "../../stores"
 import { api } from './api'
 
-import type { BlogItem } from '../../stores/useBlogStore'
+import type { PaginationProps } from 'antd'
+import type { BlogItem, PostPaging } from '../../stores/useBlogStore'
 
 
 const Blog: React.FC = () => {
   const nav = useNavigate()
   const [messageApi, messageHolder] = message.useMessage()
-  const { blogs, setBlogs } = useBlogStore()
+  const { blogs, setBlogs, paging, setPaging } = useBlogStore()
   
-  const getBlogs = async () => {
-    const res = await api.getBlogs()
+  const getBlogs = async (params?: Omit<PostPaging, 'total'>) => {
+    const res = await api.getBlogs(params)
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
     }
-    setBlogs(res.data)
+    const { data, paging } = res.data
+    setBlogs(data)
+    setPaging(paging)
   }
 
   useEffect(() => {
     getBlogs()
   }, [])
 
-  const click = (item: BlogItem) => {
+  const onItemClick = (item: BlogItem) => {
     return () => {
       nav(`/blog/details?id=${item.id}`)
     }
+  }
+
+  const onPageChange: PaginationProps['onChange'] = (page, per_page) => {
+    getBlogs({ page, per_page })
   }
 
   return (
@@ -44,7 +51,7 @@ const Blog: React.FC = () => {
         renderItem={item => (
           <List.Item 
             className="hover:bg-#dddddd transition-all duration-300 cursor-pointer !p-x-4 rounded-md" 
-            onClick={click(item)}>
+            onClick={onItemClick(item)}>
             <List.Item.Meta
               className="!items-center"
               avatar={<Avatar size="large" src={item.avatar} icon={<UserOutlined />} />}
@@ -53,6 +60,13 @@ const Blog: React.FC = () => {
             />
           </List.Item>
         )}
+      />
+      <Pagination 
+        className="flex w-980px m-auto justify-center p-t-10" 
+        showQuickJumper 
+        defaultCurrent={paging.page} 
+        total={paging.total} 
+        onChange={onPageChange}
       />
     </>
   )

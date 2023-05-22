@@ -1,16 +1,22 @@
 import axios from "../../axios"
+import qs from 'qs'
 
-import type { BlogItem } from '../../stores/useBlogStore'
+import type { BlogItem, PostPaging } from '../../stores/useBlogStore'
 
 
-export interface BlogResponse {
-  code: number
-  msg: string
+export interface PostData {
+  paging: PostPaging
   data: BlogItem[]
 }
 
+export interface PostResponse {
+  code: number
+  msg: string
+  data: PostData
+}
+
 export const api = {
-  getBlogs: async () => {
-    return (await axios.get<BlogResponse>(`/api/blog`)).data
+  getBlogs: async (paging?: Omit<PostPaging, 'total'>) => {
+    return (await axios.get<PostResponse>(`/api/blog?${qs.stringify(paging)}`)).data
   },
 }
