@@ -9,14 +9,14 @@ export interface PostData {
   data: Post[]
 }
 
-export interface PostResponse {
+export interface PostResponse<T> {
   code: number
   msg: string
-  data: PostData
+  data: T
 }
 
 export const api = {
   getPosts: async (paging?: Omit<PostPaging, 'total'>) => {
-    return (await axios.get<PostResponse>(`/api/blog?${qs.stringify(paging)}`)).data
+    return (await axios.get<PostResponse<PostData>>(`/api/blog?${qs.stringify(paging)}`)).data
   },
 }
