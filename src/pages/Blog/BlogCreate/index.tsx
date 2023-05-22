@@ -51,8 +51,8 @@ const BlogCreate: React.FC = () => {
 
     const id = searchParams.get('id')
     const params = { title, content }
-    const { editBlog, createBlog } = api
-    const res = await (id?.trim() ? editBlog(id, params) : createBlog(params))
+    const { editPost, createPost } = api
+    const res = await (id?.trim() ? editPost(id, params) : createPost(params))
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
@@ -61,7 +61,7 @@ const BlogCreate: React.FC = () => {
     nav(-1)
   }
   const editMode = async (id: string) => {
-    const res = await detailApi.getBlogDetails(id)
+    const res = await detailApi.getPostDetails(id)
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return

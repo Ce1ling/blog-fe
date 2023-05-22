@@ -16,7 +16,7 @@ export interface PostResponse {
 }
 
 export const api = {
-  getBlogs: async (paging?: Omit<PostPaging, 'total'>) => {
+  getPosts: async (paging?: Omit<PostPaging, 'total'>) => {
     return (await axios.get<PostResponse>(`/api/blog?${qs.stringify(paging)}`)).data
   },
 }

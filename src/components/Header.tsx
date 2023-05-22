@@ -24,9 +24,6 @@ const Header: React.FC = () => {
     setActive(key)
     nav(item?.path || '/')
   }
-  const createBlog = () => {
-    nav('/blog/create')
-  }
   const onLoginClick = () => {
     setLoginVisible(true)
   }
@@ -42,7 +39,7 @@ const Header: React.FC = () => {
           <img className='block w-100% h-100%' src="/L1en.svg" alt="logo" />
         </Button>
         <div className='flex' items-center gap-6 flex-basis-25rem>
-          <Button icon={<EditOutlined />} type='primary' size="large" onClick={createBlog}>
+          <Button icon={<EditOutlined />} type='primary' size="large" onClick={() => nav('/blog/create')}>
             写作
           </Button>
           <Menu 

@@ -29,10 +29,10 @@ const BlogDetails: React.FC = () => {
     }
     return true
   }
-  const getBlogDetails = async (id: SearchParams) => {
+  const getPostDetails = async (id: SearchParams) => {
     if (!hasSearchParam(id)) { return }
 
-    const res = await api.getBlogDetails(Number(id))
+    const res = await api.getPostDetails(Number(id))
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
@@ -54,7 +54,7 @@ const BlogDetails: React.FC = () => {
     return async () => {
       if (!hasSearchParam(id)) { return }
 
-      const res = await api.deleteBlog(Number(id))
+      const res = await api.deletePost(Number(id))
       if (res.code !== 0) {
         messageApi.error(res.msg)
         throw new Error(res.msg)
@@ -70,7 +70,7 @@ const BlogDetails: React.FC = () => {
   }
 
   useEffect(() => {
-    getBlogDetails(searchParams.get('id'))
+    getPostDetails(searchParams.get('id'))
   }, [])
 
   return (

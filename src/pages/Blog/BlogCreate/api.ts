@@ -1,18 +1,18 @@
 import axios from "../../../axios"
 
-import type { BlogResponse } from '../api'
+import type { PostResponse } from '../api'
 
 
-export interface CreateBlog {
+export interface CreatePost {
   title: string
   content: string
 }
 
 export const api = {
-  createBlog: async (blog: CreateBlog) => {
-    return (await axios.post<BlogResponse>(`/api/blog`, blog)).data
+  createPost: async (blog: CreatePost) => {
+    return (await axios.post<PostResponse>(`/api/blog`, blog)).data
   },
-  editBlog: async (id: string, blog: CreateBlog) => {
-    return (await axios.put<BlogResponse>(`/api/blog?id=${id}`, blog)).data
+  editPost: async (id: string, blog: CreatePost) => {
+    return (await axios.put<PostResponse>(`/api/blog?id=${id}`, blog)).data
   }
 }

@@ -14,8 +14,8 @@ const Blog: React.FC = () => {
   const [messageApi, messageHolder] = message.useMessage()
   const { posts, setPosts, paging, setPaging } = useBlogStore()
   
-  const getBlogs = async (params?: Omit<PostPaging, 'total'>) => {
-    const res = await api.getBlogs(params)
+  const getPosts = async (params?: Omit<PostPaging, 'total'>) => {
+    const res = await api.getPosts(params)
     if (res.code !== 0) {
       messageApi.error(res.msg)
       return
@@ -26,7 +26,7 @@ const Blog: React.FC = () => {
   }
 
   useEffect(() => {
-    getBlogs()
+    getPosts()
   }, [])
 
   const onItemClick = (item: Post) => {
@@ -36,7 +36,7 @@ const Blog: React.FC = () => {
   }
 
   const onPageChange: PaginationProps['onChange'] = (page, per_page) => {
-    getBlogs({ page, per_page })
+    getPosts({ page, per_page })
   }
 
   return (
