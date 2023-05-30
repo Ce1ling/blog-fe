@@ -47,7 +47,7 @@ const Blog: React.FC = () => {
         m-x-auto
         itemLayout="horizontal"
         dataSource={posts}
-        locale={{ emptyText: <Empty className="m-y-20" description="no article" /> }}
+        locale={{ emptyText: <Empty className="m-y-20" description="没有文章" /> }}
         renderItem={item => (
           <List.Item 
             className="hover:bg-#dddddd transition-all duration-300 cursor-pointer !p-x-4 rounded-md" 
@@ -61,13 +61,15 @@ const Blog: React.FC = () => {
           </List.Item>
         )}
       />
-      <Pagination 
-        className="flex w-980px m-auto justify-center p-t-10" 
-        showQuickJumper 
-        defaultCurrent={paging.page} 
-        total={paging.total} 
-        onChange={onPageChange}
-      />
+      {!!posts.length && 
+        <Pagination 
+          className="flex w-980px m-auto justify-center p-t-10" 
+          showQuickJumper 
+          defaultCurrent={paging.page} 
+          total={paging.total} 
+          onChange={onPageChange}
+        />
+      }
     </>
   )
 }
