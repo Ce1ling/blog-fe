@@ -9,7 +9,7 @@ type Errors = {
  */
 export const ERRORS: Errors = {
   timeout: '请求超时',
-  network: '网络错误',
+  network: '请求错误',
 }
 
 /**
@@ -25,5 +25,5 @@ export const handleError = (msg: string) => {
       return errMsg
     }
   })
-  return errs.filter(err => err)
+  return errs.filter(Boolean)
 }
